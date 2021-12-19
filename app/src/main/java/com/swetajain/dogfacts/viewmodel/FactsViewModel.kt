@@ -9,6 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+/**
+ * A simple [ViewModel] that provides Dog Facts from FactsRepository.
+ */
 class FactsViewModel(private val repository: FactsRepository) : ViewModel() {
     //Create a cancellable job
     private var job: Job? = null

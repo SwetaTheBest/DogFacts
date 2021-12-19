@@ -11,6 +11,12 @@ import com.swetajain.dogfacts.databinding.ActivityMainBinding
 import com.swetajain.dogfacts.viewmodel.FactsViewModel
 import com.swetajain.dogfacts.viewmodel.FactsViewModelFactory
 
+/**
+ * Shows a list of Dog Facts, with an input floating action button at the bottom
+ * to add 10 facts at once.
+ * Dog Facts are stored in a database, and the UI
+ * is updated automatically using Live data.
+ */
 class MainActivity : AppCompatActivity() {
     lateinit var factsViewModel: FactsViewModel
     private lateinit var recyclerView: RecyclerView
