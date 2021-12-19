@@ -5,8 +5,12 @@ import com.swetajain.dogfacts.api.ApiInterface.Companion.mServices
 import com.swetajain.dogfacts.db.FactsDatabase
 import com.swetajain.dogfacts.models.Fact
 
+
+/**
+ * A repository which provides resource from local database as well as remote end point.
+ *
+ */
 class FactsRepository(
-//    private val apiInterface: ApiInterface,
     private val factsDatabase: FactsDatabase
 ) {
 
@@ -18,7 +22,12 @@ class FactsRepository(
         val result = mServices.getFacts(number)
         if (result.isSuccessful) {
             result.body()?.let { factsDatabase.factsDao().addFacts(it) }
-            _factsLiveData.postValue(result.body())
+            showAllFacts()
         }
+    }
+
+    suspend fun showAllFacts() {
+        val list = factsDatabase.factsDao().readAllData()
+        _factsLiveData.postValue(list)
     }
 }

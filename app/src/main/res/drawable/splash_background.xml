@@ -3,12 +3,13 @@
     android:opacity="opaque"> <!-- android:opacity="opaque" should be here -->
     <item>
         <!--this is your background, you can use color, gradient etc.-->
-        <color android:color="@color/purple_200" />
+        <color android:color="@color/white" />
 
     </item>
     <item>
         <bitmap
             android:gravity="center"
+            android:alpha="0.1"
             android:src="@drawable/dog" />
     </item>
 </layer-list>
