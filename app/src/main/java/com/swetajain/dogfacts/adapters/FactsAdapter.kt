@@ -4,10 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.swetajain.dogfacts.R
 import com.swetajain.dogfacts.models.Fact
+import com.swetajain.dogfacts.utils.FactsDiffUtils
 
+/**
+ * A simple Adapter that binds Facts items into Views.
+ *
+ * FactsAdapter is a RecyclerView.Adapter base class which can present the content of Lists
+ * in a RecyclerView. It requests new items as the user scrolls, and handles new Lists by
+ * computing list differences on a background thread, and dispatching minimal, efficient updates to
+ * the RecyclerView to ensure minimal UI thread work.
+
+ */
 class FactsAdapter : RecyclerView.Adapter<FactsAdapter.FactsViewHolder>() {
     private var factsList = emptyList<Fact>()
 
@@ -33,8 +44,10 @@ class FactsAdapter : RecyclerView.Adapter<FactsAdapter.FactsViewHolder>() {
         return factsList.size
     }
 
-    fun setData(list: List<Fact>) {
-        this.factsList = list
-        notifyDataSetChanged()
+    fun setData(newList: List<Fact>) {
+        val diffUtil = FactsDiffUtils(oldFacts = factsList, newFacts = newList)
+        val diffResultList = DiffUtil.calculateDiff(diffUtil)
+        factsList = newList
+        diffResultList.dispatchUpdatesTo(this)
     }
 }
