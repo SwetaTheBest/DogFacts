@@ -1,12 +1,10 @@
 package com.swetajain.dogfacts.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.swetajain.dogfacts.R
+import com.swetajain.dogfacts.databinding.FactsItemBinding
 import com.swetajain.dogfacts.models.Fact
 import com.swetajain.dogfacts.utils.FactsDiffUtils
 
@@ -22,22 +20,22 @@ import com.swetajain.dogfacts.utils.FactsDiffUtils
 class FactsAdapter : RecyclerView.Adapter<FactsAdapter.FactsViewHolder>() {
     private var factsList = emptyList<Fact>()
 
-    class FactsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvFact: TextView = itemView.findViewById(R.id.tvFact)
-        val tvFactId: TextView = itemView.findViewById(R.id.tvFactId)
-
-    }
+    class FactsViewHolder(val binding: FactsItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FactsViewHolder {
         return FactsViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.facts_item, parent, false)
+            FactsItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
     override fun onBindViewHolder(holder: FactsViewHolder, position: Int) {
         val current = factsList[position]
-        holder.tvFact.text = current.fact
-        holder.tvFactId.text = current.factId.toString()
+        holder.binding.tvFact.text = current.fact
+        holder.binding.tvFactId.text = current.factId.toString()
     }
 
     override fun getItemCount(): Int {
